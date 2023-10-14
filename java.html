@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Use-After-Free Example</title>
+</head>
+<body>
+    <button onclick="triggerUseAfterFree()">Trigger Use-After-Free</button>
+
+    <script>
+        let timer;
+        let obj = { data: "This is sensitive data" };
+
+        function triggerUseAfterFree() {
+            // 設置計時器，等待一段時間後再訪問對象
+            timer = setTimeout(function () {
+                console.log("Accessing data:", obj.data);
+            }, 1000);
+            
+            // 立即釋放對象
+            obj = null;
+        }
+    </script>
+</body>
+</html>
