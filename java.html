@@ -9,11 +9,13 @@
     <script>
         let timer;
         let obj = { data: "This is sensitive data" };
+        console.log("1st Accessing data:", obj.data);
 
         function triggerUseAfterFree() {
             // 設置計時器，等待一段時間後再訪問對象
             timer = setTimeout(function () {
-                console.log("Accessing data:", obj.data);
+                console.log("2nd Accessing data:");
+                console.log(obj.data);
             }, 1000);
             
             // 立即釋放對象
