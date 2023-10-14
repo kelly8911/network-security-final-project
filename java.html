@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Use-After-Free Example</title>
+    <title>Heap-Use-After-Free</title>
 </head>
 <body>
-    <button onclick="triggerUseAfterFree()">Trigger Use-After-Free</button>
-
     <script>
-        let timer;
-        let obj = { data: "This is sensitive data" };
-        console.log("1st Accessing data:", obj.data);
-
-        function triggerUseAfterFree() {
-            // 設置計時器，等待一段時間後再訪問對象
-            timer = setTimeout(function () {
-                console.log("2nd Accessing data:");
-                console.log(obj.data);
-            }, 1000);
-            
-            // 立即釋放對象
-            obj = null;
-        }
+        let obj = {data: "xxxx"};
+	    document.write("1st Accessing data: ", obj.data);
+           
+        // 立即釋放對象
+        obj = null;
+        document.write("</br>free the data.");
+        
+        // 再次訪問對象
+     	document.write("</br>2nd Accessing data: ");
+        
+        if (obj == null) 
+        {
+            document.write("The sensitive data has been freed.");
+            document.write(" Heap-use-after-free error happened.");
+      	} 
+        
+        document.write(obj.data); 
     </script>
 </body>
 </html>
