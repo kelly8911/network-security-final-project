@@ -2,9 +2,9 @@ var errorMsg = '';
 
 var customer_name = $.trim($("input[name='customer_name']").val());
 
-// minical原始碼: 無法判斷是否含有csv formula, 可能造成CSV injection
-if (customer_name == "") {
-    errorMsg += "\nCustomer Name is required";
+// minical修改版: 加入"判斷是否含有formula"的條件, 若含有=, +, -, @等符號, 代表可能含有formula, 因此顯示Invalid Customer Name
+if (customer_name == "" || customer_name.match(/^[=+-@]/) != null) {
+    errorMsg += "\nInvalid Customer Name";
 }
 var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 var customer_email = $.trim($("input[name='customer-email']").val());
